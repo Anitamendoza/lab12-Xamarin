@@ -52,8 +52,22 @@ namespace lab12.ViewModels
                 }
             }
          
-            List<TaskModel> tasks;
-        public List<TaskModel> Tasks
+        //    List<TaskModel> tasks;
+        //public List<TaskModel> Tasks
+        //{
+        //    get { return tasks; }
+        //    set
+        //    {
+        //        if (tasks != value)
+        //        {
+        //            tasks = value;
+        //            OnPropertyChanged();
+        //        }
+        //    }
+        //}
+
+        ObservableCollection<TaskModel> tasks;
+        public ObservableCollection<TaskModel> Tasks
         {
             get { return tasks; }
             set
@@ -65,13 +79,16 @@ namespace lab12.ViewModels
                 }
             }
         }
+
+        public List<TaskModel> TaskModel { get; }
         public ICommand Save { protected set; get; }
         public ICommand Get { protected set; get; }
-        public ObservableCollection<TaskModel> Tasks { get; set; }
+        public IEnumerable<TaskModel> TasksModel { get; private set; }
 
         public TaskViewModel()
         {
             Tasks = new ObservableCollection<TaskModel>();
+            TaskModel = new List<TaskModel>();
 
             Save = new Command(() =>
             {
@@ -83,15 +100,16 @@ namespace lab12.ViewModels
                 };
 
                 Tasks.Add(newTask);
+
             });
 
             Get = new Command(() =>
             {
                 Tasks = new ObservableCollection<TaskModel>(Tasks);
             });
-          
 
-           
+
+        }
             
         }
     }

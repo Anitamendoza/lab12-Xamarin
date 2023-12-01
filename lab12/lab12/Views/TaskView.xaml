@@ -30,15 +30,23 @@
 
             <Button FontSize="Title" Command="{Binding Save}" Text="Guardar" />
 
-                <ListView x:Name="itemsListView" ItemsSource="{Binding Task}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <TextCell Text="{Binding Titulo}" />
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+              
 
                 <Button FontSize="Title" Command="{Binding Get}" Text="Listar" />
+
+            <ListView ItemsSource="{Binding Tasks}">
+                
+            </ListView>
+
+            <!--<ListView x:Name="itemsListView" ItemsSource="{Binding Task}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Label
+                        <TextCell Text="{Binding Titulo}" />
+                            />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>-->
         </StackLayout>
 
 
