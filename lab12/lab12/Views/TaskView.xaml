@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="lab12.Views.TaskView">
+    <ContentPage.Content>
+        <StackLayout Padding="50">
+            <StackLayout>
+                <Label FontSize="Title" Text="Título" />
+                <Entry FontSize="Title" Text="{Binding Title}" Placeholder="Ingrese el Título" />
+            </StackLayout>
+
+            <!-- Etiqueta y cuadro de entrada para la Descripción -->
+            <StackLayout>
+                <Label FontSize="Title" Text="Descripción" />
+                <Entry FontSize="Title" Text="{Binding Descripcion}" Placeholder="Ingrese la Descripción" />
+            </StackLayout>
+
+            <Picker
+                Grid.Row="2"
+                x:Name="comboBoxStatus"
+                Title="Estado">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Estado 1</x:String>
+                        <x:String>Estado 2</x:String>
+                        <x:String>Estado 3</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+            <Button FontSize="Title" Command="{Binding Save}" Text="Guardar" />
+
+                <ListView x:Name="itemsListView" ItemsSource="{Binding Task}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextCell Text="{Binding Titulo}" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <Button FontSize="Title" Command="{Binding Get}" Text="Listar" />
+        </StackLayout>
+
+
+    </ContentPage.Content>
+</ContentPage>
