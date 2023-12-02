@@ -9,109 +9,85 @@ using Xamarin.Forms;
 namespace lab12.ViewModels
 { 
         public class TaskViewModel : BaseViewModel
+
         {
-            string title;
-            public string Title
-            {
-                get { return title; }
-                set
-                {
-                    if (title != value)
-                    {
-                        title = value;
-                        OnPropertyChanged();
-                    }
-                }
-            }
-
-            string descripcion;
-            public string Descripcion
-            {
-                get { return descripcion; }
-                set
-                {
-                    if (descripcion != value)
-                    {
-                        descripcion = value;
-                    OnPropertyChanged();
-                    }
-                }
-            }
-
-            string status;
-            public string Status
-            {
-                get { return status; }
-                set
-                {
-                    if (status != value)
-                    {
-                        status = value;
-                        OnPropertyChanged();
-                    }
-                }
-            }
-         
-        //    List<TaskModel> tasks;
-        //public List<TaskModel> Tasks
-        //{
-        //    get { return tasks; }
-        //    set
-        //    {
-        //        if (tasks != value)
-        //        {
-        //            tasks = value;
-        //            OnPropertyChanged();
-        //        }
-        //    }
-        //}
-
-        ObservableCollection<TaskModel> tasks;
-        public ObservableCollection<TaskModel> Tasks
+        private ObservableCollection<Models.TaskModel> tasks;
+        private string Title;
+        private string Descripcion;
+        private string Status;
+        private ObservableCollection<Models.TaskModel> storedTasks;
+        public ObservableCollection<Models.TaskModel> Tasks
         {
-            get { return tasks; }
+            get => tasks;
             set
             {
-                if (tasks != value)
-                {
-                    tasks = value;
-                    OnPropertyChanged();
-                }
+                tasks = value;
+                OnPropertyChanged();
+            }
+        }
+        public string title
+        {
+            get => Title;
+            set
+            {
+                Title = value;
+                OnPropertyChanged();
+            }
+        }
+        public string descripcion
+        {
+            get => Descripcion;
+            set
+            {
+                Descripcion = value;
+                OnPropertyChanged();
+            }
+        }
+        public string status
+        {
+            get => Status;
+            set
+            {
+                Status = value;
+                OnPropertyChanged();
             }
         }
 
-        public List<TaskModel> TaskModel { get; }
-        public ICommand Save { protected set; get; }
-        public ICommand Get { protected set; get; }
-        public IEnumerable<TaskModel> TasksModel { get; private set; }
+        public ICommand Save => new Command(ExecuteSave);
+        public ICommand Get => new Command(ExecuteGet);
 
         public TaskViewModel()
         {
-            Tasks = new ObservableCollection<TaskModel>();
-            TaskModel = new List<TaskModel>();
-
-            Save = new Command(() =>
-            {
-                TaskModel newTask = new TaskModel
-                {
-                    Title = this.Title,
-                    Descripcion = this.Descripcion,
-                    Status = this.Status
-                };
-
-                Tasks.Add(newTask);
-
-            });
-
-            Get = new Command(() =>
-            {
-                Tasks = new ObservableCollection<TaskModel>(Tasks);
-            });
-
-
+            storedTasks = new ObservableCollection<Models.TaskModel>();
+            tasks = new ObservableCollection<Models.TaskModel>();
         }
-            
+
+        private void ExecuteSave()
+        {
+            var newTask = new Models.TaskModel
+            {
+                Title = Title,
+                Descripcion = Descripcion,
+                Status = Status
+            };
+
+            storedTasks.Add(newTask);
+
+            Title = string.Empty;
+            Descripcion = string.Empty;
+            Status = string.Empty;
+        }
+
+        private void ExecuteGet()
+        {
+            Tasks.Clear();
+
+            foreach (var task in storedTasks)
+            {
+                Tasks.Add(task);
+            }
         }
     }
-    
+}
+
 

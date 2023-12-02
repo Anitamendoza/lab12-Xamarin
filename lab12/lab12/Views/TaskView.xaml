@@ -1,54 +1,69 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
              x:Class="lab12.Views.TaskView">
+
     <ContentPage.Content>
-        <StackLayout Padding="50">
-            <StackLayout>
-                <Label FontSize="Title" Text="Título" />
-                <Entry FontSize="Title" Text="{Binding Title}" Placeholder="Ingrese el Título" />
-            </StackLayout>
+        <StackLayout Padding="20" >
+            <Label Text="Laboratorio N°12 - Xamarin " FontSize="20" FontAttributes="Bold" TextColor="Purple" HorizontalOptions="Center" Margin="0,0,0,20" />
 
-            <!-- Etiqueta y cuadro de entrada para la Descripción -->
-            <StackLayout>
-                <Label FontSize="Title" Text="Descripción" />
-                <Entry FontSize="Title" Text="{Binding Descripcion}" Placeholder="Ingrese la Descripción" />
-            </StackLayout>
+            <Label Text="Title" FontAttributes="Bold" TextColor="Purple" />
+            <Frame CornerRadius="15" BackgroundColor="LightSkyBlue" Padding="5" Margin="0,0,0,10">
+                <Entry Text="{Binding title, Mode=TwoWay}" Placeholder="Escribe un titulo" BackgroundColor="LightSkyBlue" FontSize="15"  />
+            </Frame>
+            <Label Text="Description" FontAttributes="Bold" TextColor="Purple" />
+            <Frame CornerRadius="15" BackgroundColor="LightSkyBlue" Padding="5" Margin="0,0,0,10">
+                <Entry Text="{Binding descripcion, Mode=TwoWay}" Placeholder="Añade una descripcion" BackgroundColor="LightSkyBlue"  FontSize="15" />
+            </Frame>
+            <Label Text="Status" FontAttributes="Bold" TextColor="Purple" />
 
-            <Picker
-                Grid.Row="2"
-                x:Name="comboBoxStatus"
-                Title="Estado">
-                <Picker.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>Estado 1</x:String>
-                        <x:String>Estado 2</x:String>
-                        <x:String>Estado 3</x:String>
-                    </x:Array>
-                </Picker.ItemsSource>
-            </Picker>
-
-            <Button FontSize="Title" Command="{Binding Save}" Text="Guardar" />
-
-              
-
-                <Button FontSize="Title" Command="{Binding Get}" Text="Listar" />
-
-            <ListView ItemsSource="{Binding Tasks}">
+            <Frame CornerRadius="15" BackgroundColor="LightSkyBlue" Padding="10" Margin="0,0,0,10">
+                <Picker
+                    Grid.Row="2"
+                    x:Name="comboBoxStatus"
+                    Title="Seleccionar Estado"
+                    SelectedItem="{Binding status, Mode=TwoWay}"
+                    TitleColor="Purple"
+                    TextColor="Purple"
+                     FontSize="15">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Estado 1</x:String>
+                            <x:String>Estado 2</x:String>
+                            <x:String>Estado 3</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+            </Frame>
+            <StackLayout Orientation="Horizontal" Grid.Row="4" HorizontalOptions="CenterAndExpand">
+                <Button Text="Save" Command="{Binding Save}" BackgroundColor="MediumPurple" TextColor="White"  />
+                <Button Text="Get" Command="{Binding Get}" BackgroundColor="DarkOrchid" TextColor="White" />
                 
-            </ListView>
+            </StackLayout>
 
-            <!--<ListView x:Name="itemsListView" ItemsSource="{Binding Task}">
+            <ListView ItemsSource="{Binding Tasks}" VerticalOptions="FillAndExpand" HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Label
-                        <TextCell Text="{Binding Titulo}" />
-                            />
+                        <ViewCell>
+                            <Frame BackgroundColor="LightSkyBlue" Padding="10" Margin="0,5,0,5" CornerRadius="10">
+                                <StackLayout>
+                                    <Label Text="Title" FontAttributes="Bold" FontSize="15" />
+                                    <Label Text="{Binding Title}" FontAttributes="Bold" TextColor="Purple" FontSize="15" />
+                                    <Label Text="Description" FontAttributes="Bold" FontSize="15" />
+                                    <Label Text="{Binding Descripcion}" TextColor="Purple" FontSize="15" />
+                                    <Label Text="Status" FontAttributes="Bold" FontSize="15" />
+                                    <Label Text="{Binding Status}" TextColor="Purple" FontSize="15" />
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>-->
+            </ListView>
+            <Label Text="By Ana Mendoza" FontSize="15" TextColor="Purple" HorizontalOptions="Center" VerticalOptions="End" Margin="0,10,0,0" />
+
         </StackLayout>
-
-
     </ContentPage.Content>
 </ContentPage>
